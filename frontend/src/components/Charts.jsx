@@ -4,18 +4,16 @@ import {
   LineElement, PointElement, ArcElement, Tooltip, Legend,
 } from 'chart.js';
 
-// Chart.js a besoin qu'on "enregistre" les briques dont on a besoin
 ChartJS.register(
   CategoryScale, LinearScale, BarElement, LineElement,
   PointElement, ArcElement, Tooltip, Legend
 );
 
-const gridColor = 'rgba(255,255,255,0.12)';
-const textColor = 'rgba(255,255,255,0.75)';
+const gridColor = '#e7eaf3';
+const textColor = '#5b6178';
 const fmtUSD = (n) => '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
 const fmtCompact = (n) => Intl.NumberFormat('en-US', { notation: 'compact' }).format(n);
 
-// Coupe un texte trop long et ajoute des points de suspension pour que ce soit visible
 const truncate = (str, n) => (str.length > n ? str.slice(0, n - 1).trimEnd() + '…' : str);
 
 export function TrendChart({ monthly }) {
@@ -24,8 +22,8 @@ export function TrendChart({ monthly }) {
       data={{
         labels: monthly.map((d) => d.month),
         datasets: [
-          { label: 'Dépense (USD)', data: monthly.map((d) => d.spend), backgroundColor: '#ffffff', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Impressions', data: monthly.map((d) => d.impressions), type: 'line', borderColor: '#8ecbff', yAxisID: 'y1' },
+          { label: 'Dépense (USD)', data: monthly.map((d) => d.spend), backgroundColor: '#2954e2', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Impressions', data: monthly.map((d) => d.impressions), type: 'line', borderColor: '#16a34a', yAxisID: 'y1' },
         ],
       }}
       options={{
@@ -49,8 +47,8 @@ export function PlatformChart({ platform }) {
         labels: filtered.map((p) => p.platform),
         datasets: [{
           data: filtered.map((p) => p.spend),
-          backgroundColor: ['#ffffff', '#8ecbff', '#5b6ee1', 'rgba(255,255,255,0.3)', '#c9a7ff'],
-          borderColor: 'rgba(27, 37, 89, 1)',
+          backgroundColor: ['#2954e2', '#16a34a', '#f59e0b', '#dc2626', '#7c3aed'],
+          borderColor: '#ffffff',
           borderWidth: 3,
         }],
       }}
@@ -67,7 +65,7 @@ export function CampaignChart({ campaigns }) {
     <Bar
       data={{
         labels: campaigns.map((c) => truncate(c.campaign, 38)),
-        datasets: [{ data: campaigns.map((c) => c.spend), backgroundColor: '#ffffff', borderRadius: 4 }],
+        datasets: [{ data: campaigns.map((c) => c.spend), backgroundColor: '#2954e2', borderRadius: 4 }],
       }}
       options={{
         indexAxis: 'y', responsive: true, maintainAspectRatio: false,
@@ -90,7 +88,7 @@ export function ObjectiveChart({ objective }) {
     <Bar
       data={{
         labels: objective.map((o) => o.objective),
-        datasets: [{ data: objective.map((o) => o.spend), backgroundColor: '#8ecbff', borderRadius: 4 }],
+        datasets: [{ data: objective.map((o) => o.spend), backgroundColor: '#16a34a', borderRadius: 4 }],
       }}
       options={{
         responsive: true, maintainAspectRatio: false,
@@ -106,7 +104,7 @@ export function PlacementChart({ placement }) {
     <Bar
       data={{
         labels: placement.map((p) => p.placement),
-        datasets: [{ data: placement.map((p) => p.spend), backgroundColor: '#c9a7ff', borderRadius: 4 }],
+        datasets: [{ data: placement.map((p) => p.spend), backgroundColor: '#f59e0b', borderRadius: 4 }],
       }}
       options={{
         indexAxis: 'y', responsive: true, maintainAspectRatio: false,
@@ -125,8 +123,8 @@ export function DailyChart({ daily }) {
         datasets: [{
           label: 'Dépense',
           data: daily.map((d) => d.spend),
-          borderColor: '#8ecbff',
-          backgroundColor: 'rgba(142,203,255,0.15)',
+          borderColor: '#2954e2',
+          backgroundColor: 'rgba(41,84,226,0.1)',
           fill: true,
           tension: 0.3,
           pointRadius: 0,
